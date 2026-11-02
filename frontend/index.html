@@ -1,0 +1,107 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Huffman | File Compression</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="app">
+
+        <aside class="sidebar">
+            <h2>◈ HUFFMAN</h2>
+            <p class="sidebar-label">WORKSPACE</p>
+
+            <nav>
+                <a class="active" href="#">▦ Dashboard</a>
+                <a href="#compress">⇧ Compress</a>
+                <a href="#decompress">⇩ Decompress</a>
+                <a href="#analytics">◷ Analytics</a>
+            </nav>
+
+            <div class="sidebar-bottom">
+                <span>● System Ready</span>
+                <small>Huffman Coding v1.0</small>
+            </div>
+        </aside>
+
+        <main class="main-content">
+
+            <header class="topbar">
+                <span>Dashboard / Overview</span>
+                <span class="status">● LOCAL SYSTEM</span>
+            </header>
+
+            <section class="welcome">
+                <p>FILE MANAGEMENT</p>
+                <h1>File Compression</h1>
+                <span>Compress files intelligently. Save storage space.</span>
+            </section>
+
+            <section class="upload-section" id="compress">
+                <div class="upload-box">
+                    <div class="upload-icon">⇧</div>
+                    <h2>Upload your file</h2>
+                    <p>Select a file to start Huffman compression</p>
+                    <input type="file" id="fileInput">
+                </div>
+
+                <div class="actions">
+                    <button id="compressBtn">Compress File</button>
+                    <button id="decompressBtn">Decompress File</button>
+                </div>
+            </section>
+
+            <section class="stats" id="analytics">
+                <div class="stat-card">
+                    <p>Original Size</p>
+                    <h2 id="originalSize">--</h2>
+                </div>
+
+                <div class="stat-card">
+                    <p>Compressed Size</p>
+                    <h2 id="compressedSize">--</h2>
+                </div>
+
+                <div class="stat-card">
+                    <p>Space Saved</p>
+                    <h2 id="spaceSaved">--</h2>
+                </div>
+
+                <div class="stat-card">
+                    <p>Compression Ratio</p>
+                    <h2 id="ratio">--</h2>
+                </div>
+            </section>
+
+            <section class="visual-section">
+                <div class="panel">
+                    <h2>Huffman Tree</h2>
+                    <p>Your binary tree visualization will appear here.</p>
+                    <div id="treeContainer">
+                        Tree visualization pending
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <h2>Huffman Codes</h2>
+                    <p>Character encoding information</p>
+                    <div id="codeContainer">
+                        No encoding data available yet.
+                    </div>
+                </div>
+            </section>
+
+            <footer>
+                Huffman File Compression Tool | Advanced DSA Project
+            </footer>
+
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
