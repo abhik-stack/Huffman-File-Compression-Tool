@@ -155,6 +155,7 @@ bool decompressFile(const string& inputFilename,
                 if (current == nullptr) {
                     cout << "Invalid compressed data!\n";
                     restored.close();
+                    remove(outputFilename.c_str());
                     deleteTree(root);
                     return false;
                 }
@@ -176,6 +177,7 @@ bool decompressFile(const string& inputFilename,
         if (decoded != totalCharacters) {
             cout << "Compressed file is incomplete!\n";
             restored.close();
+            remove(outputFilename.c_str());
             deleteTree(root);
             return false;
         }

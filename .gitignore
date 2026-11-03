@@ -1,7 +1,25 @@
+# Python
 .venv/
 venv/
 __pycache__/
+
+# macOS
 .DS_Store
-uploads/
+
+# Generated executables
 compressor
+file_compressor
+minheap
+
+# Generated compression files
 *.huff
+*.restored
+
+# Uploads and temporary tests
+uploads/
+final_test.txt
+
+# Generated Huffman visualizations
+huffman_tree.dot
+huffman_tree.png
+huffman_codes.csv

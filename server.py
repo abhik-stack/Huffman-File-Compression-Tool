@@ -5,6 +5,7 @@ from werkzeug.utils import secure_filename
 import subprocess
 import os
 import uuid
+import csv
 
 app = Flask(__name__)
 CORS(app)
@@ -32,6 +33,27 @@ def compress():
         return jsonify({"error": "No file uploaded"}), 400
 
     uploaded_file = request.files["file"]
+    if not uploaded_file.filename:
+        return jsonify({"error": "No filename provided"}), 400
+
+    allowed_extensions = {".txt", ".csv", ".log"}
+
+    filename = secure_filename(uploaded_file.filename)
+    extension = os.path.splitext(filename)[1].lower()
+
+    if extension not in allowed_extensions:
+        return jsonify({
+        "error": "Unsupported file type. Please upload .txt, .csv, or .log files."
+    }), 400
+    uploaded_file.seek(0, os.SEEK_END)
+    file_size = uploaded_file.tell()
+    uploaded_file.seek(0)
+
+    if file_size == 0:
+        return jsonify({"error": "The uploaded file is empty."}), 400
+
+    if file_size > 10 * 1024 * 1024:
+        return jsonify({"error": "File size must be under 10 MB."}), 400
 
     if not uploaded_file.filename:
         return jsonify({"error": "No filename provided"}), 400
@@ -153,6 +175,24 @@ def download(filename):
         filename,
         as_attachment=True
     )
+@app.route("/api/tree")
+def get_huffman_tree():
+    return send_from_directory(
+        BASE_DIR,
+        "huffman_tree.png"
+    )
+@app.route("/api/codes")
+def get_huffman_codes():
+    csv_path = os.path.join(BASE_DIR, "huffman_codes.csv")
+
+    if not os.path.exists(csv_path):
+        return jsonify({"error": "Huffman codes not found"}), 404
+
+    with open(csv_path, "r", newline="", encoding="utf-8") as file:
+        reader = csv.DictReader(file)
+        codes = list(reader)
+
+    return jsonify(codes)
 
 if __name__ == "__main__":
     app.run(debug=True, port=5000)
