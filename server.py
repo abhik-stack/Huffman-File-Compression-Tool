@@ -7,7 +7,7 @@ import os
 import uuid
 import csv
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="frontend", static_url_path="")
 CORS(app)
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -17,7 +17,7 @@ os.makedirs(UPLOAD_DIR, exist_ok=True)
 
 @app.route("/")
 def home():
-    return "Huffman Compression Backend is Running!"
+    return app.send_static_file("index.html")
 
 @app.route("/test", methods=["GET"])
 def test():
@@ -195,4 +195,4 @@ def get_huffman_codes():
     return jsonify(codes)
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5000)
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
