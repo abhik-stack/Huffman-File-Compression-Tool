@@ -66,6 +66,8 @@ def compress():
     compressed_path = input_path + ".huff"
 
     uploaded_file.save(input_path)
+    print("DECOMPRESS UPLOAD SIZE:", os.path.getsize(input_path))
+    print("DECOMPRESS UPLOAD PATH:", input_path)
 
     try:
         result = subprocess.run(
