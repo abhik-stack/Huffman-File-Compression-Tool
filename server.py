@@ -181,7 +181,8 @@ def download(filename):
 def get_huffman_tree():
     return send_from_directory(
         BASE_DIR,
-        "huffman_tree.png"
+        "huffman_tree.dot",
+        mimetype="text/vnd.graphviz"
     )
 @app.route("/api/codes")
 def get_huffman_codes():
@@ -197,4 +198,4 @@ def get_huffman_codes():
     return jsonify(codes)
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5001)))

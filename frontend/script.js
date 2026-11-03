@@ -45,20 +45,34 @@ function formatSize(bytes) {
         return (bytes / 1024).toFixed(2) + " KB";
     return (bytes / (1024 * 1024)).toFixed(2) + " MB";
 }
-function displayHuffmanTree() {
-    const img = document.createElement("img");
+async function displayHuffmanTree() {
+    const treeContainer = document.getElementById("treeContainer");
 
-    img.src = `${API_URL}/api/tree?t=${Date.now()}`;
-    img.alt = "Huffman Tree Visualization";
+    try {
+        treeContainer.innerHTML = "Generating Huffman Tree...";
 
-    img.style.width = "100%";
-    img.style.height = "auto";
-    img.style.maxHeight = "500px";
-    img.style.objectFit = "contain";
-    img.style.borderRadius = "10px";
+        const response = await fetch(`/api/tree?t=${Date.now()}`);
 
-    treeContainer.innerHTML = "";
-    treeContainer.appendChild(img);
+        if (!response.ok) {
+            throw new Error("Could not load Huffman tree.");
+        }
+
+        const dotCode = await response.text();
+
+        const viz = await Viz.instance();
+
+        const svg = viz.renderSVGElement(dotCode);
+
+        treeContainer.innerHTML = "";
+        treeContainer.appendChild(svg);
+
+        svg.style.width = "100%";
+        svg.style.height = "auto";
+
+    } catch (error) {
+        console.error("Tree visualization error:", error);
+        treeContainer.innerHTML = "Unable to display Huffman Tree.";
+    }
 }
 async function displayHuffmanCodes() {
     try {
